@@ -1,0 +1,136 @@
+<div class="card">
+  <div class="container">
+    <div>
+      <h3 style="text-align: center;">Questionnaire</h3>
+      <hr />
+      <p><b class="yellow">Context:</b> {{ context }}</p>
+      <p><b class="yellow">Hypothesis:</b> {{ hypothesis }}</p>
+      <p><b>What is the answer?</b></p>
+      <p>
+        <input
+          type="checkbox"
+          [(ngModel)]="hypothesisCorrect"
+          (change)="updateCheckBox('correct')"
+        />
+        The hypothesis is <span class="correct">correct</span>.
+      </p>
+      <p>
+        <input
+          type="checkbox"
+          [(ngModel)]="hypothesisInCorrect"
+          (change)="updateCheckBox('incorrect')"
+        />
+        The hypothesis is <span class="incorrect">incorrect</span>.
+      </p>
+      <p>
+        <input
+          type="checkbox"
+          [(ngModel)]="hypothesisNeither"
+          (change)="updateCheckBox('neither')"
+        />
+        The hypothesis is <span class="neither">neither</span> correct nor
+        incorrect.
+      </p>
+      <hr />
+      <div
+        *ngIf="hypothesisCorrect || hypothesisInCorrect || hypothesisNeither"
+      >
+        <p><b>Another person gave the following answer and explanation:</b></p>
+        <p><b class="yellow">Context:</b> {{ context }}</p>
+        <p><b class="yellow">Hypothesis:</b> {{ hypothesis }}</p>
+        <p><b class="yellow">Answer:</b> {{ answer }}</p>
+        <p><b class="yellow">Explanation:</b> {{ explanation }}</p>
+        <hr />
+        <p *ngIf="hypothesisCorrect">
+          <b
+            >Does the explanation correctly say what in the context confirms
+            everything in the hypothesis.</b
+          >
+        </p>
+        <p *ngIf="hypothesisInCorrect">
+          <b
+            >Does the explanation correctly say what in the hypothesis
+            contradicts what in the context?</b
+          >
+        </p>
+        <p *ngIf="hypothesisNeither">
+          <b
+            >Does the explanation correctly say what in the hypothesis can’t be
+            confirmed or refuted by the context?</b
+          >
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            [(ngModel)]="justificationYes"
+            (change)="updateJustificationSelection('yes')"
+          />
+          Yes
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            [(ngModel)]="justificationNo"
+            (change)="updateJustificationSelection('no')"
+          />
+          No
+        </p>
+        <p *ngIf="hypothesisCorrect">
+          <b
+            >Does the explanation correctly say why it confirms the hypothesis?
+          </b>
+        </p>
+        <p *ngIf="hypothesisInCorrect">
+          <b
+            >Does the explanation correctly say why this is a contradiction?
+          </b>
+        </p>
+        <p *ngIf="hypothesisNeither">
+          <b
+            >Does the explanation correctly say why this information can’t be
+            confirmed or refuted by what is said in the context?</b
+          >
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            [(ngModel)]="explanationYes"
+            (change)="updateExplanationSelection('yes')"
+          />
+          Yes
+        </p>
+        <p>
+          <input
+            type="checkbox"
+            [(ngModel)]="explanationNo"
+            (change)="updateExplanationSelection('no')"
+          />
+          No
+        </p>
+        <div *ngIf="explanationYes || explanationNo">
+          <p>
+            <b
+              >Optional: You may write below any comments you may have that
+              could help us understand your answer:</b
+            >
+          </p>
+          <textarea
+            [(ngModel)]="myAnswerJustification"
+            rows="5"
+            cols="15"
+          ></textarea>
+        </div>
+        <hr />
+      </div>
+    </div>
+    <div class="btns-container">
+      <button
+        class="btn-primary"
+        (click)="onSubmit()"
+        [disabled]="disableSubmit()"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
